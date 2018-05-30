@@ -6,7 +6,7 @@ import requests
 import json
 import os
 from copy import copy
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Chat
 from datetime import datetime
 
 PORT = int(os.environ.get('PORT', '8443'))
@@ -17,12 +17,17 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 pairing = {
-    "Test": -1001265460962
+    "Test": Chat(-1001265460962, "public")
 }
 
 def admin(bot, update):
     logger.info(update.message.chat.id)
-    bot.send_message(pairing[update.message.chat.title], "Alert")
+    chat = pairing[update.message.chat.title]
+
+    if (chat.username):
+        bot.send_message(chat.id, "Alert in @%s" % chat.username)
+    else:
+        bot.send_message(chat.id, "Alert in %s" % chat.title)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
