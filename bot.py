@@ -18,18 +18,18 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 pairing = {
-    "Test": Chat(-1001265460962, "public")
+    "Test": -1001265460962
 }
 
 def admin(bot, update):
     logger.info(update.message.chat.id)
-    chat = pairing[update.message.chat.title]
+    chat_id = pairing[update.message.chat.title]
     logger.info("'%s'" % chat.username)
 
-    if (chat.username and (chat.username != "None")):
-        bot.send_message(chat.id, "Alert in @%s" % chat.username)
+    if (update.message.chat.username):
+        bot.send_message(chat_id, "Alert in @%s" % update.message.chat.username)
     else:
-        bot.send_message(chat.id, "Alert in %s" % chat.title)
+        bot.send_message(chat_id, "Alert in %s" % chat.message.chat.title)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
