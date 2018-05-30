@@ -17,12 +17,12 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 pairing = {
-    "Test": ""
+    "Test": "1001265460962"
 }
 
 def admin(bot, update):
     logger.info(update.message.chat.id)
-    #bot.send_message(pairing[update.chat.title], "Alert")
+    bot.send_message(pairing[update.chat.title], "Alert")
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
