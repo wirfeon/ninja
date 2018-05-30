@@ -22,7 +22,7 @@ pairing = {
 
 def admin(bot, update):
     logger.info(update.message.chat.id)
-    bot.send_message(pairing[update.chat.title], "Alert")
+    bot.send_message(pairing[update.message.chat.title], "Alert")
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
