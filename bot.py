@@ -21,7 +21,7 @@ pairing = {
 }
 
 def admin(bot, update):
-    logger.info(update.chat.id)
+    logger.info(update.message.chat.id)
     #bot.send_message(pairing[update.chat.title], "Alert")
 
 def error(bot, update, error):
