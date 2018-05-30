@@ -41,7 +41,7 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("admin", price))
+    dp.add_handler(CommandHandler("admin", admin))
 
     # log all errors
     dp.add_error_handler(error)
