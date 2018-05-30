@@ -24,12 +24,11 @@ pairing = {
 def admin(bot, update):
     logger.info(update.message.chat.id)
     chat_id = pairing[update.message.chat.title]
-    logger.info("'%s'" % chat.username)
 
     if (update.message.chat.username):
         bot.send_message(chat_id, "Alert in @%s" % update.message.chat.username)
     else:
-        bot.send_message(chat_id, "Alert in %s" % chat.message.chat.title)
+        bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
