@@ -24,6 +24,7 @@ pairing = {
 def admin(bot, update):
     logger.info(update.message.chat.id)
     chat = pairing[update.message.chat.title]
+    logger.info("%s" % chat.username)
 
     if (chat.username):
         bot.send_message(chat.id, "Alert in @%s" % chat.username)
