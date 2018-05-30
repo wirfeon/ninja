@@ -17,7 +17,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 pairing = {
-    "Test": "1001265460962"
+    "Test": -1001265460962
 }
 
 def admin(bot, update):
@@ -27,7 +27,7 @@ def admin(bot, update):
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
-    update.message.chat.send_message("Coming soon...")
+    update.message.chat.send_message("Error")
 
 def main():
     """Start the bot."""
