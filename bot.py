@@ -6,7 +6,8 @@ import requests
 import json
 import os
 from copy import copy
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Chat
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import Chat
 from datetime import datetime
 
 PORT = int(os.environ.get('PORT', '8443'))
