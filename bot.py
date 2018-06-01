@@ -55,6 +55,11 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("admin", admin))
+    dp.add_handler(CommandHandler("ban", admin))
+    dp.add_handler(CommandHandler("kick", admin))
+    dp.add_handler(CommandHandler("spam", admin))
+    dp.add_handler(CommandHandler("scam", admin))
     dp.add_handler(MessageHandler(Filters.text, check))
 
     # log all errors
