@@ -23,6 +23,9 @@ pairing = {
 
 def admin(bot, update):
     logger.info(update.message.chat.id)
+    if (update.message.chat.title not in pairing):
+        return
+
     chat_id = pairing[update.message.chat.title]
 
     if (update.message.chat.username):
