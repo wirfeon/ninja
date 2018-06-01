@@ -31,7 +31,7 @@ def admin(bot, update):
         bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
 def check(bot, update):
-    if (update.message.text.strip() == "/admin"):
+    if (update.message.text.strip() in ("/admin", "/ban", "/kick", "/spam", "/scam")):
         admin(bot, update)
 
 def error(bot, update, error):
@@ -51,7 +51,6 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("admin", admin))
     dp.add_handler(MessageHandler(Filters.text, check))
 
     # log all errors
