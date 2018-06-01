@@ -25,11 +25,8 @@ def admin(bot, update):
     logger.info(update.message.chat.id)
     chat_id = pairing[update.message.chat.title]
 
-    bot.forward_message(chat_id, update.message.chat.id, update.message.message_id, "Alert")
-    return
-
     if (update.message.chat.username):
-        bot.send_message(chat_id, "Alert in @%s" % update.message.chat.username)
+        bot.send_message(chat_id, "Alert in https://t.me/%s/%s" % (update.message.chat.username, update.message.message_id))
     else:
         bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
