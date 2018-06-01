@@ -30,6 +30,10 @@ def admin(bot, update):
     else:
         bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
+def check(bot, update):
+    if (update.message.text.strip() == "/admin"):
+        admin(bot, update)
+
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
@@ -48,6 +52,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("admin", admin))
+    dp.add_handler(MessageHandler(Filters.text, check))
 
     # log all errors
     dp.add_error_handler(error)
