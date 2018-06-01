@@ -34,6 +34,7 @@ def admin(bot, update):
         bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
 def check(bot, update):
+    logger.info("'%s'" % updatae.message.text.strip())
     if (update.message.text.strip() in ("/admin", "/ban", "/kick", "/spam", "/scam")):
         admin(bot, update)
 
