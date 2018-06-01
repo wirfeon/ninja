@@ -18,7 +18,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 pairing = {
-    "Test": -1001265460962
+    "Simulator": -1001265460962
 }
 
 def admin(bot, update):
