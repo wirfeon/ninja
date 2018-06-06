@@ -54,7 +54,7 @@ def main():
             updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=os.environ["BOT_TOKEN"])
             updater.bot.set_webhook(os.environ["WEB_HOOK"] + os.environ["BOT_TOKEN"])
             break
-   	    except Exception as e:
+        except Exception as e:
             logger.warn("Exception: %s" % e)
             updater.stop()
         #endtry
