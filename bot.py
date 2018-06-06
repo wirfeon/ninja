@@ -17,6 +17,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+# Group title : Group id
+# Bot forwards messages from group identified by title to group identified by id
 pairing = {
     "Simulator": -1001265460962
 }
