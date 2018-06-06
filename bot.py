@@ -48,9 +48,21 @@ def main():
     # Create the EventHandler and pass it your bot's token.
     updater = Updater(os.environ["BOT_TOKEN"], workers = 1)
 
-    updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=os.environ["BOT_TOKEN"])
-    updater.bot.set_webhook(os.environ["WEB_HOOK"] + os.environ["BOT_TOKEN"])
+    i = 0
+    while i < 2:
+        try:
+            updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=os.environ["BOT_TOKEN"])
+            updater.bot.set_webhook(os.environ["WEB_HOOK"] + os.environ["BOT_TOKEN"])
+			break
+   	    except Exception as e:
+            logger.warn("Exception: %s" % e)
+            updater.stop()
+        #endtry
 
+        i += 1
+        time.sleep(1)
+    #endwhile
+ 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
