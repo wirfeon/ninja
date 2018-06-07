@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import requests
 import json
 import os
 from copy import copy
