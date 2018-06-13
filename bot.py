@@ -5,15 +5,20 @@ import logging
 import json
 import os
 import time
+import sys
 from copy import copy
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import Chat
 from datetime import datetime
 
-PORT = int(os.environ.get('PORT', '8443'))
+_port = int(os.environ.get('PORT', '9000'))
+_webhook = os.environ["WEB_HOOK"]
+_token = os.environ["BOT_TOKEN"]
+_location = os.environ["URL_LOCATION"]
+_certificate = os.environ["CERTIFICATE"]
 
 # Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(stream=sys.stderr, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
@@ -48,13 +53,13 @@ def error(bot, update, error):
 def main():
     """Start the bot."""
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater(os.environ["BOT_TOKEN"], workers = 1)
+    updater = Updater(_token, workers = 1)
 
     i = 0
     while i < 2:
         try:
-            updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=os.environ["BOT_TOKEN"])
-            updater.bot.set_webhook(os.environ["WEB_HOOK"] + os.environ["BOT_TOKEN"])
+            updater.start_webhook(listen="0.0.0.0", port=_port, url_path=_location)
+            updater.bot.set_webhook(url=_webhook, certificate=open(_certificate, 'rb'))
             break
         except Exception as e:
             logger.warn("Exception: %s" % e)
@@ -81,6 +86,8 @@ def main():
 
     # Start the Bot
     updater.start_polling()
+
+    logger.info("Running")
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
