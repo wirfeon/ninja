@@ -41,13 +41,13 @@ def admin(bot, update):
         bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
 def check(bot, update):
-    logger.info("'%s'" % updatae.message.text.strip())
+    # logger.info("'%s'" % update.message.text.strip())
     if (update.message.text.strip() in ("/admin", "/ban", "/kick", "/spam", "/scam")):
         admin(bot, update)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, error)
+    logger.error('Update "%s" caused error "%s"', update, error)
     update.message.chat.send_message("Error")
 
 def main():
@@ -62,7 +62,7 @@ def main():
             updater.bot.set_webhook(url=_webhook, certificate=open(_certificate, 'rb'))
             break
         except Exception as e:
-            logger.warn("Exception: %s" % e)
+            logger.error("Exception: %s" % e)
             updater.stop()
         #endtry
 
@@ -83,9 +83,6 @@ def main():
 
     # log all errors
     dp.add_error_handler(error)
-
-    # Start the Bot
-    updater.start_polling()
 
     logger.info("Running")
 
