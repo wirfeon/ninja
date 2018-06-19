@@ -12,24 +12,28 @@ from telegram import Chat
 from datetime import datetime
 
 _port = int(os.environ.get('PORT', '9000'))
-_webhook = os.environ["WEB_HOOK"]
+_webhook = "%s%s" % (os.environ["WEB_HOOK"], os.environ["BOT_TOKEN"])
 _token = os.environ["BOT_TOKEN"]
 _location = os.environ["URL_LOCATION"]
 _certificate = os.environ["CERTIFICATE"]
+_listen = "127.0.0.1"
 
 # Enable logging
-logging.basicConfig(stream=sys.stderr, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(stream=sys.stderr, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 
 # Group title : Group id
 # Bot forwards messages from group identified by title to group identified by id
 pairing = {
-    "Simulator": -1001265460962
+    "Simulator": -1001265460962,
+    "NEM::Red": -1001265460962,
+    "NEM Czech & Slovak Republic": -1001265460962,
+    "NEMberia 2.0": -1001265460962
 }
 
 def admin(bot, update):
-    logger.info(update.message.chat.id)
+    logger.info("Title: '%s' ID: %d" % (update.message.chat.title, update.message.chat.id))
     if (update.message.chat.title not in pairing):
         return
 
@@ -41,24 +45,25 @@ def admin(bot, update):
         bot.send_message(chat_id, "Alert in %s" % update.message.chat.title)
 
 def check(bot, update):
-    # logger.info("'%s'" % update.message.text.strip())
     if (update.message.text.strip() in ("/admin", "/ban", "/kick", "/spam", "/scam")):
         admin(bot, update)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.error('Update "%s" caused error "%s"', update, error)
-    update.message.chat.send_message("Error")
 
 def main():
     """Start the bot."""
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater(_token, workers = 1)
+    logger.info("Creating updater object with token: '%s'" % (_token))
+
+    updater = Updater(_token)
 
     i = 0
     while i < 2:
         try:
-            updater.start_webhook(listen="0.0.0.0", port=_port, url_path=_location)
+            logger.info("Starting webhook '%s' %d '%s'" % (_listen, _port, _location))
+            updater.start_webhook(listen=_listen, port=_port, url_path=_location)
             updater.bot.set_webhook(url=_webhook, certificate=open(_certificate, 'rb'))
             break
         except Exception as e:

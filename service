@@ -1,0 +1,21 @@
+[Unit]
+Description=Ninja, the Telegram bot
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Environment=PIPENV_VENV_IN_PROJECT=1
+#Environment=BOT_TOKEN=592307835:AAHx1Zj5bsB0b8-dX33Z-Iunop9ekLS515I
+Environment=BOT_TOKEN=587195483:AAGWe1F9UuskwvXRem2pVNaIl3j8hBM9dmc
+Environment=WEB_HOOK=https://207.154.195.62:8443/
+Environment=PORT=9000
+Environment=URL_LOCATION=/
+Environment=CERTIFICATE=/etc/nginx/ssl/server.pem
+WorkingDirectory=/www/ninja
+ExecStart=/usr/local/bin/pipenv run python3 bot.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=bot.ninja
